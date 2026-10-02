@@ -1,5 +1,0 @@
-Print ("hello")
-int a,b,c
-c=a+b
-print (f"sum ={c}")
-
