@@ -1,36 +1,50 @@
-name: ETL Pipeline
+name: dependency
 
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
-    extract-job:
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout code
-              uses: actions/checkout@v7
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run code
+        run: echo 'job1'
 
-            - name: run python program
-              run: python extract.py
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: run code
+        run: echo 'job2'
 
-    transform-job:
-        needs: extract-job
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout code
-              uses: actions/checkout@v7
+  job3:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: run code
+        run: echo 'job3'
 
-            - name: run python program
-              run: python transform.py
+  job4:
+    needs: job2
+    runs-on: ubuntu-latest
+    steps:
+      - name: run code
+        run: echo 'job4'
 
-    load-job:
-        needs: transform-job
-        runs-on: ubuntu-latest
-        steps:
-            - name: checkout code
-              uses: actions/checkout@v7
+  job5:
+    needs: job3
+    runs-on: ubuntu-latest
+    steps:
+      - name: run code
+        run: echo 'job5'
 
-            - name: run python program
-              run: python load.py
+  job6:
+    needs: [job4, job5]
+    runs-on: ubuntu-latest
+    steps:
+      - name: run code
+        run: echo 'job6'
