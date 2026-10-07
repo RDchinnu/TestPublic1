@@ -9,4 +9,4 @@ data = {
 
 print('Student Details')
 df = pd.DataFrame(data)
-print(data)
+print(df)
