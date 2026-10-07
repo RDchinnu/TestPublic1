@@ -6,7 +6,7 @@ on:
             - main
 
 jobs:
-    run-python-code:
+    build-job:
         runs-on: ubuntu-latest
         steps:
             - name: checkout code
@@ -17,3 +17,12 @@ jobs:
 
             - name: run test case
               run: pytest --cov=calc --cov-report=term
+
+            - name: print message
+              run: echo 'build completed'
+    deploy-job:
+        needs: build-job
+        runs-on: ubuntu-latest
+        steps:
+            - name: print message
+              run: echo 'deploy to prod'
